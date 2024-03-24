@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!-- h1 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sixtyfour&display=swap" rel="stylesheet">
+  <!-- instructions -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Kode+Mono:wght@400..700&family=Sixtyfour&display=swap" rel="stylesheet">
+<!-- instructions text -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&family=Kode+Mono:wght@400..700&family=Sixtyfour&display=swap" rel="stylesheet">
+  <title>Memory Matching Game</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="name">MEMORY CATCH</div>
+  <div class="memory-game">
+   <button id="start-btn">START GAME</button>
+   <button id="reset-btn">RESET</button>
+   <button id="pause-resume-btn">PAUSE</button>
+    <div class="cards" id="card-container">
+      <!-- Cards will be generated dynamically -->
+    </div>
+	<div id="instructions">
+	<ul>
+	<h2 class="instr_h">INSTRUCTIONS</h2>
+	<li><div class="ins_name">OBJECTIVE</div><div class="text"> The goal of the game is to match all pairs of cards within the given time limit.</div></li>
+	<li><div class="ins_name">GAMEPLAY</div><div class="text"> Click on any two cards to reveal their symbols. If the symbols match, the cards remain face-up. If not, they flip back over.</div></li>
+	<li><div class="ins_name">MATCHING</div><div class="text"> Keep track of the symbols on each card you reveal. When you find two matching symbols, they stay face-up, and you earn extra time.</div></li>
+	<li><div class="ins_name">EXTRA TIME</div><div class="text">Matching pairs of cards adds 3 seconds to your remaining time.</div></li>
+	<li><div class="ins_name">TIMER</div><div class="text"> The timer starts counting down from 1 minute (60 seconds). Try to match all pairs before time runs out.</div></li>
+	<li><div class="ins_name">WINNING</div><div class="text"> You win the game by successfully matching all pairs of cards before the timer reaches zero.</div></li>
+	<li><div class="ins_name">HAVE FUN!</div><div class="text"> Enjoy the challenge of testing your memory and concentration skills!</div></li>
+	</ul>
+	</div> 
+    <div id="scoreboard">
+        <h2 class="scoreboard_h">SCOREBOARD</h2>
+        <div id="score">SCORE: <span id="score-value"></span></div>
+        <div id="scoring-system">
+          <!-- Scoring system content -->
+        </div>
+      </div>
+	<div id="timer">1:00</div> <!-- Timer display -->
+	<div id="time-addition">+0</div> <!-- Time addition display -->
+  <script src="script.js"></script>
+  
+</body>
+<div id="footer">@Luka_Rauter</footer>
+  </div>
+</html>
