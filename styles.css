@@ -30,7 +30,7 @@
     background-position: center; /* Center the background image */
     background-repeat: no-repeat; /* Prevent the background image from repeating */
     border: none;
-	
+	  background-image: url(game_card_art.png);
     
   }
   /* Define the animation for flipping */
@@ -259,3 +259,4 @@
 #pause-resume-btn:hover{
 	text-shadow: 0 0 5px yellow
 }
+
