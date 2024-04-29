@@ -259,4 +259,6 @@
 #pause-resume-btn:hover{
 	text-shadow: 0 0 5px yellow
 }
-
+.card.matched {
+  background-color: green !important;
+}

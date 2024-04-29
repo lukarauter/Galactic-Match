@@ -69,65 +69,75 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 	function flipCard(card) {
-    // Check if the card can be flipped (less than 2 flipped cards, not already matched, and timer started)
-    if (flippedCards.length < 2 && !flippedCards.includes(card) && !card.classList.contains('matched') && timerStarted) {
-        card.classList.add('flipped');
-        const hiddenContent = card.querySelector('.hidden');
-
-        // Delay toggling the flipped class to allow the CSS animation to play
-        setTimeout(() => {
-            // Check if the card is still flipped (i.e., not matched yet)
-            if (card.classList.contains('flipped')) {
-                card.classList.remove('flipped');
-                card.classList.add('flipped-back');
-                hiddenContent.classList.toggle('visible');
+        // Check if the card can be flipped (less than 2 flipped cards, not already matched, and timer started)
+        if (flippedCards.length < 2 && !flippedCards.includes(card) && !card.classList.contains('matched') && timerStarted) {
+            // Flip the card
+            card.classList.toggle('flipped');
+    
+            flippedCards.push(card);
+    
+            // Check for matching when two cards are flipped
+            if (flippedCards.length === 2) {
+                setTimeout(checkMatch, 1000);
             }
-        }, 100); // Adjust timing as needed
-
-        flippedCards.push(card);
-
-        // Check for matching when two cards are flipped
-        if (flippedCards.length === 2) {
-            setTimeout(checkMatch, 1000);
+        } else if (flippedCards.length === 2 && !flippedCards.includes(card) && !card.classList.contains('matched') && timerStarted) {
+            // If two cards are already flipped, and the player tries to flip another card, flip the previously flipped cards back
+            flippedCards.forEach(flippedCard => {
+                flippedCard.classList.remove('flipped');
+                flippedCard.classList.add('flipped-back'); // Add flipped-back class
+            });
+            flippedCards = [];
+    
+            // Flip the new card
+            card.classList.toggle('flipped');
+    
+            flippedCards.push(card);
         }
     }
-}
-function checkMatch() {
-    const [firstCard, secondCard] = flippedCards;
-    const symbol1 = firstCard.textContent;
-    const symbol2 = secondCard.textContent;
+    
 
-    if (symbol1 === symbol2) {
-        firstCard.classList.add('matched'); // Add matched class to the card
-        secondCard.classList.add('matched'); // Add matched class to the card
-        matchedPairs++;
-
-        // Add 3 seconds to the timer
-        const timeAdded = 3;
-        timeLeft += timeAdded;
-        updateTimerDisplay();
-
-        // Display the added time
-        updateAdditionDisplay(timeAdded);
-
-        if (matchedPairs === totalPairs) {
-            // Call endGame when all pairs are matched
-            endGame();
+    function checkMatch() {
+        const [firstCard, secondCard] = flippedCards;
+        const symbol1 = firstCard.querySelector('.symbol').textContent; // Get the symbol of the first card
+        const symbol2 = secondCard.querySelector('.symbol').textContent; // Get the symbol of the second card
+    
+        if (symbol1 === symbol2) {
+            // Add matched class to the cards
+            firstCard.classList.add('matched');
+            secondCard.classList.add('matched');
+    
+            // Apply green background color to the matched cards
+            firstCard.style.backgroundColor = 'green';
+            secondCard.style.backgroundColor = 'green';
+    
+            matchedPairs++;
+    
+            // Add 3 seconds to the timer
+            const timeAdded = 3;
+            timeLeft += timeAdded;
+            updateTimerDisplay();
+    
+            // Display the added time
+            updateAdditionDisplay(timeAdded);
+    
+            if (matchedPairs === totalPairs) {
+                // Call endGame when all pairs are matched
+                endGame();
+            }
+        } else {
+            // If cards don't match, remove the 'flipped' class after a delay to animate flipping back
+            setTimeout(() => {
+                firstCard.classList.remove('flipped');
+                secondCard.classList.remove('flipped');
+                const hiddenContent1 = firstCard.querySelector('.hidden');
+                const hiddenContent2 = secondCard.querySelector('.hidden');
+                hiddenContent1.classList.remove('visible');
+                hiddenContent2.classList.remove('visible');
+            }, 500); // Adjust the delay to match your animation duration
         }
-    } else {
-        // If cards don't match, remove the 'flipped' class after a delay to animate flipping back
-        setTimeout(() => {
-            firstCard.classList.remove('flipped');
-            secondCard.classList.remove('flipped');
-            const hiddenContent1 = firstCard.querySelector('.hidden');
-            const hiddenContent2 = secondCard.querySelector('.hidden');
-            hiddenContent1.classList.remove('visible');
-            hiddenContent2.classList.remove('visible');
-        }, 500); // Adjust the delay to match your animation duration
+    
+        flippedCards = [];
     }
-
-    flippedCards = [];
-}
 function endGame() {
         clearInterval(timerInterval);
         timerStarted = false;
